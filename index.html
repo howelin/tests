@@ -3,22 +3,24 @@
 <head>  
 <title>PhoneGap</title>  
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-<script type="text/javascript">
-	function onLoad(){
-		document.addEventListener("deviceready", onDeviceReady, false);    
-		function onDeviceReady() {showAlert();}
-    	function showAlert() {navigator.notification.alert(
-			'Hello World',  // 信息
-			alertDismissed, // 回调函数            
-			'Hello',        // 标题           
-			'Done'          // 按钮名称        
-    	);
-    	}
-
-	}    
+<script type="text/javascript" charset="utf-8">  
+   function onLoad()  
+   {  
+       document.addEventListener("deviceready",onDeviceReady,false);  
+   }  
+     
+   function onDeviceReady()  
+   {  
+       var myDiv = document.getElementById('props');  
+       myDiv.innerHTML = 'Device Name:    ' + device.name     + '<br />' +   
+                         'Device PhoneGap:' + device.phonegap + '<br />' +   
+                         'Device Platform:' + device.platform + '<br />' +  
+                         'Device UUID:    ' + device.uuid     + '<br />' +  
+                         'Device Version: ' + device.version  + '<br />' ;  
+   }     
 </script>  
 </head>  
-<body onload="onLoad()">  
-sdfsaf
-</body>  
+<body onLoad="onLoad()">  
+   <p id="props">Loading device properties...</p>  
+</body>   
 </html>  
