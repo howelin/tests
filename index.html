@@ -1,26 +1,39 @@
-<!DOCTYPE HTML>  
-<html>  
-<head>  
-<title>PhoneGap</title>  
-<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-<script type="text/javascript" charset="utf-8">  
-   function onLoad()  
-   {  
-       document.addEventListener("deviceready",onDeviceReady,false);  
-   }  
-     
-   function onDeviceReady()  
-   {  
-       var myDiv = document.getElementById('props');  
-       myDiv.innerHTML = 'Device Name:    ' + device.name     + '<br />' +   
-                         'Device PhoneGap:' + device.phonegap + '<br />' +   
-                         'Device Platform:' + device.platform + '<br />' +  
-                         'Device UUID:    ' + device.uuid     + '<br />' +  
-                         'Device Version: ' + device.version  + '<br />' ;  
-   }     
-</script>  
-</head>  
-<body onLoad="onLoad()">  
-   <p id="props">Loading device properties...</p>  
-</body>   
-</html>  
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Phonegap Accelerometer 实例效果</title>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <style>
+        #ball{ 
+              position: absolute;  
+              width: 30px; 
+              height: 30px; 
+              border-radius: 15px; 
+              background: #f00;
+        }
+    </style>
+</head>
+<body>
+    <div id="ball" style="top: 0; left: 0;"></div>
+    <script>
+        var ball = document.getElementById('ball');
+        var fun = function(){
+            function onSuccess(acceleration) {
+                var st = parseInt(ball.style.top);
+                var sl = parseInt(ball.style.left);
+                var et = st+acceleration.y;
+                var el = sl-acceleration.x;
+                var maxT = window.innerHeight - ball.offsetHeight;
+                var maxL = window.innerWidth - ball.offsetWidth;
+                ball.style.top = ( et < 0 ? 0 : et > maxT ? maxT : et )+'px';
+                ball.style.left = ( el < 0 ? 0 : el > maxL ? maxL : el )+'px';
+            };
+
+            var watchID = navigator.accelerometer.watchAcceleration(
+                          onSuccess, function(){}, { frequency: 100 });
+        };
+        document.addEventListener('deviceready', fun, false);
+    </script>
+</body>
+</html>
